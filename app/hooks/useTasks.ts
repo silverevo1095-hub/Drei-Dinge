@@ -19,6 +19,15 @@ function save(tasks: Task[]) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks))
 }
 
+function sortByTime(tasks: Task[]): Task[] {
+  return [...tasks].sort((a, b) => {
+    if (a.time && b.time) return a.time.localeCompare(b.time)
+    if (a.time) return -1
+    if (b.time) return 1
+    return 0
+  })
+}
+
 export function useTasks() {
   const [tasks, setTasks] = useState<Task[]>(load)
 
@@ -27,8 +36,14 @@ export function useTasks() {
     save(next)
   }
 
-  function addTask(text: string) {
-    const task: Task = { id: crypto.randomUUID(), text, done: false, bucket: 'later' }
+  function addTask(text: string, time?: string) {
+    const task: Task = {
+      id: crypto.randomUUID(),
+      text,
+      done: false,
+      bucket: 'later',
+      ...(time ? { time } : {}),
+    }
     update([...tasks, task])
   }
 
@@ -46,8 +61,8 @@ export function useTasks() {
     update(tasks.map((t) => (t.id === id ? { ...t, bucket: 'today' } : t)))
   }
 
-  const todayTasks = tasks.filter((t) => t.bucket === 'today')
-  const laterTasks = tasks.filter((t) => t.bucket === 'later')
+  const todayTasks = sortByTime(tasks.filter((t) => t.bucket === 'today'))
+  const laterTasks = sortByTime(tasks.filter((t) => t.bucket === 'later'))
   const openTodayCount = todayTasks.filter((t) => !t.done).length
   const todayFull = openTodayCount >= TODAY_OPEN_LIMIT
 
