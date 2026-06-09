@@ -21,7 +21,7 @@ export default function TaskList({
   emptyMessage = 'Keine Aufgaben',
 }: Props) {
   if (tasks.length === 0) {
-    return <p className="text-sm text-stone-400">{emptyMessage}</p>
+    return <p className="text-sm text-stone-400 dark:text-stone-600">{emptyMessage}</p>
   }
 
   return (

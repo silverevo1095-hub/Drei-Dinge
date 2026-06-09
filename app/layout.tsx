@@ -12,8 +12,24 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1c1917",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafaf9" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c0a09" },
+  ],
 };
+
+// Inline script prevents flash of wrong theme before React hydrates
+const themeScript = `
+(function() {
+  try {
+    var saved = localStorage.getItem('drei-dinge-theme');
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    }
+  } catch(e) {}
+})();
+`;
 
 export default function RootLayout({
   children,
@@ -22,7 +38,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de" className="h-full">
-      <body className="min-h-full">{children}</body>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="min-h-full bg-stone-50 text-stone-900 transition-colors dark:bg-stone-950 dark:text-stone-50">
+        {children}
+      </body>
     </html>
   );
 }

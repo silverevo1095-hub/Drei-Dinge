@@ -29,26 +29,26 @@ export default function TemplateList({ templates, onUse, onDelete, onAdd }: Prop
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="Neue Vorlage …"
-          className="flex-1 rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm text-stone-900 placeholder-stone-400 outline-none focus:border-stone-400"
+          className="flex-1 rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm text-stone-900 placeholder-stone-400 outline-none transition-colors focus:border-stone-400 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:placeholder-stone-600 dark:focus:border-stone-500"
         />
         <button
           type="submit"
-          className="rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm text-stone-600 active:bg-stone-50"
+          className="rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm text-stone-600 transition-colors active:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400 dark:active:bg-stone-800"
         >
           Speichern
         </button>
       </form>
 
       {templates.length === 0 ? (
-        <p className="text-sm text-stone-400">Noch keine Vorlagen.</p>
+        <p className="text-sm text-stone-400 dark:text-stone-600">Noch keine Vorlagen.</p>
       ) : (
         <ul className="flex flex-col gap-2">
           {templates.map((t) => (
-            <li key={t.id} className="flex items-center gap-3 rounded-xl border border-stone-100 bg-white px-4 py-3">
-              <span className="flex-1 truncate text-sm text-stone-700">{t.text}</span>
+            <li key={t.id} className="flex items-center gap-3 rounded-xl border border-stone-100 bg-white px-4 py-3 dark:border-stone-800 dark:bg-stone-900">
+              <span className="flex-1 truncate text-sm text-stone-700 dark:text-stone-300">{t.text}</span>
               <button
                 onClick={() => onUse(t.text)}
-                className="shrink-0 text-xs text-stone-400 hover:text-stone-700"
+                className="shrink-0 rounded-lg px-2 py-1 text-xs text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-700 dark:text-stone-600 dark:hover:bg-stone-800 dark:hover:text-stone-300"
                 aria-label="Als Aufgabe hinzufügen"
               >
                 + Aufgabe
@@ -56,7 +56,7 @@ export default function TemplateList({ templates, onUse, onDelete, onAdd }: Prop
               <button
                 onClick={() => onDelete(t.id)}
                 aria-label="Vorlage löschen"
-                className="shrink-0 text-stone-300 hover:text-red-400"
+                className="shrink-0 text-stone-300 transition-colors hover:text-red-400 dark:text-stone-700 dark:hover:text-red-500"
               >
                 <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none">
                   <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />

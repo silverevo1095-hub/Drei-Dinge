@@ -28,30 +28,30 @@ export default function TaskInput({ onAdd, defaultText = '' }: Props) {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Neue Aufgabe …"
-          className="flex-1 rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm text-stone-900 placeholder-stone-400 outline-none focus:border-stone-400"
+          className="flex-1 rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm text-stone-900 placeholder-stone-400 outline-none transition-colors focus:border-stone-400 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:placeholder-stone-600 dark:focus:border-stone-500"
         />
         <button
           type="submit"
-          className="rounded-xl bg-stone-900 px-4 py-3 text-sm font-medium text-white active:bg-stone-700"
+          className="rounded-xl bg-stone-900 px-4 py-3 text-sm font-medium text-white transition-colors active:bg-stone-700 dark:bg-stone-100 dark:text-stone-900 dark:active:bg-stone-300"
         >
           Hinzufügen
         </button>
       </div>
-      <div className="flex items-center gap-2 px-1">
-        <label className="text-xs text-stone-400">Uhrzeit (optional)</label>
+      <div className="flex items-center gap-3 px-1">
+        <label className="text-xs text-stone-400 dark:text-stone-500">Uhrzeit (optional)</label>
         <input
           type="time"
           value={time}
           onChange={(e) => setTime(e.target.value)}
-          className="rounded-lg border border-stone-200 bg-white px-2 py-1 text-xs text-stone-700 outline-none focus:border-stone-400"
+          className="rounded-lg border border-stone-200 bg-white px-2 py-1 text-xs text-stone-700 outline-none transition-colors focus:border-stone-400 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:focus:border-stone-500"
         />
         {time && (
           <button
             type="button"
             onClick={() => setTime('')}
-            className="text-xs text-stone-400 hover:text-stone-600"
+            className="text-xs text-stone-400 transition-colors hover:text-stone-600 dark:text-stone-600 dark:hover:text-stone-400"
           >
-            ✕
+            Zurücksetzen
           </button>
         )}
       </div>
