@@ -1,11 +1,16 @@
 'use client'
 
+import { useState } from 'react'
 import { useTasks } from './hooks/useTasks'
+import { useTemplates } from './hooks/useTemplates'
 import TaskInput from './components/TaskInput'
 import TaskList from './components/TaskList'
+import TemplateList from './components/TemplateList'
 
 export default function Home() {
   const { todayTasks, laterTasks, todayFull, addTask, toggleTask, deleteTask, moveToToday } = useTasks()
+  const { templates, addTemplate, deleteTemplate } = useTemplates()
+  const [showTemplates, setShowTemplates] = useState(false)
 
   return (
     <main className="min-h-screen bg-stone-50 px-4 py-10">
@@ -43,6 +48,27 @@ export default function Home() {
             onMoveToToday={moveToToday}
             emptyMessage="Keine weiteren Aufgaben."
           />
+        </section>
+
+        <section className="space-y-3">
+          <button
+            onClick={() => setShowTemplates((v) => !v)}
+            className="flex w-full items-center justify-between"
+          >
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-stone-400">
+              Standardaufgaben
+            </h2>
+            <span className="text-xs text-stone-400">{showTemplates ? '▲' : '▼'}</span>
+          </button>
+
+          {showTemplates && (
+            <TemplateList
+              templates={templates}
+              onUse={(text) => addTask(text)}
+              onDelete={deleteTemplate}
+              onAdd={addTemplate}
+            />
+          )}
         </section>
 
       </div>
