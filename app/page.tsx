@@ -10,7 +10,7 @@ import TemplateList from './components/TemplateList'
 import ThemeToggle from './components/ThemeToggle'
 
 export default function Home() {
-  const { todayTasks, laterTasks, todayFull, addTask, toggleTask, deleteTask, moveToToday } = useTasks()
+  const { todayTasks, laterTasks, todayFull, addTask, editTask, toggleTask, deleteTask, moveToToday } = useTasks()
   const { templates, addTemplate, deleteTemplate } = useTemplates()
   const { theme, toggle } = useTheme()
   const [showTemplates, setShowTemplates] = useState(false)
@@ -48,6 +48,7 @@ export default function Home() {
           <TaskList
             tasks={todayTasks}
             onToggle={toggleTask}
+            onEdit={editTask}
             onDelete={deleteTask}
             emptyMessage="Noch nichts für heute — verschiebe Aufgaben aus Später."
           />
@@ -62,6 +63,7 @@ export default function Home() {
             tasks={laterTasks}
             showMoveToToday={!todayFull}
             onToggle={toggleTask}
+            onEdit={editTask}
             onDelete={deleteTask}
             onMoveToToday={moveToToday}
             emptyMessage="Keine weiteren Aufgaben."

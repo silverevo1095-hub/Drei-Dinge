@@ -55,6 +55,10 @@ export function useTasks() {
     update(tasks.filter((t) => t.id !== id))
   }
 
+  function editTask(id: string, text: string, time?: string) {
+    update(tasks.map((t) => (t.id === id ? { ...t, text, time: time ?? undefined } : t)))
+  }
+
   function moveToToday(id: string) {
     const openToday = tasks.filter((t) => t.bucket === 'today' && !t.done).length
     if (openToday >= TODAY_OPEN_LIMIT) return
@@ -66,5 +70,5 @@ export function useTasks() {
   const openTodayCount = todayTasks.filter((t) => !t.done).length
   const todayFull = openTodayCount >= TODAY_OPEN_LIMIT
 
-  return { todayTasks, laterTasks, todayFull, addTask, toggleTask, deleteTask, moveToToday }
+  return { todayTasks, laterTasks, todayFull, addTask, editTask, toggleTask, deleteTask, moveToToday }
 }
