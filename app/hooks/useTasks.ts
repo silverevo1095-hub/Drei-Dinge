@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { Task } from '../types'
 
 const STORAGE_KEY = 'drei-dinge-tasks'
@@ -20,11 +20,7 @@ function save(tasks: Task[]) {
 }
 
 export function useTasks() {
-  const [tasks, setTasks] = useState<Task[]>([])
-
-  useEffect(() => {
-    setTasks(load())
-  }, [])
+  const [tasks, setTasks] = useState<Task[]>(load)
 
   function update(next: Task[]) {
     setTasks(next)
